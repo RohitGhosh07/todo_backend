@@ -65,6 +65,17 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/google-login', (req, res) => {
+  const { token } = req.body;
+
+  // Verify the token and handle the login logic here
+  // For demonstration purposes, we'll just return a success message
+  if (token) {
+    res.status(200).json({ msg: 'Google login successful' });
+  } else {
+    res.status(400).json({ msg: 'Invalid token' });
+  }
+});
 // @route   GET api/users
 // @desc    Get all users
 // @access  Public

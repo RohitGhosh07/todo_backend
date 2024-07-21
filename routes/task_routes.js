@@ -53,6 +53,21 @@ router.put('/:id', async (req, res) => {
     res.status(500).send('Server error');
   }
 });
+router.delete('/:id', async (req, res) => {
+  try {
+    const task = await Task.findById(req.params.id);
+
+    if (!task) return res.status(404).json({ msg: 'Task not found' });
+
+    await Task.findByIdAndDelete(req.params.id);
+
+    res.json({ msg: 'Task deleted' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server error');
+  }
+});
+
 
 // @route   GET /tasks
 // @desc    Get all tasks
@@ -73,3 +88,6 @@ router.get('/:userId', async (req, res) => {
 });
 
 module.exports = router;
+// @route   DELETE /tasks/:id
+// @desc    Delete a task
+// @access  Public
